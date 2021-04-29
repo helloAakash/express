@@ -12,5 +12,16 @@ const sendEmail = (options) => {
     }
   });
 
+  const mailOptions = {
+    from:options.from,
+    to:options.to,
+    subect:options.subject,
+    text:options.text,
+    html:options.html
+  }
+  transport.sendMail(mailOptions)
+
 
 }
+
+module.exorts=sendEmail

@@ -25,7 +25,12 @@ const userSchema = new mongoose.Schema({
         required: true
     },
 
-    salt: String
+    salt: String,
+
+    isVerified:{
+      type:Boolean,
+      default:false
+    }
 
 
 }, { timestamps: true })
@@ -56,7 +61,7 @@ userSchema.methods = {
                 .update(password)
                 .digest('hex')
         } catch (err) {
-            return 
+            return
         }
     }
 }

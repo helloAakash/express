@@ -4,6 +4,10 @@ const jwt = require('jsonwebtoken')
 const expressJwt = require('express-jwt')
 //for authorization use express-jwt
 
+const Token=require('../model/token')
+const sendEmail = require('../utils/verifyEmail')
+const crypto = require('crypto')
+
 exports.postUser = (req, res) => {
     let user = new User({
         name: req.body.name,
@@ -14,6 +18,25 @@ exports.postUser = (req, res) => {
         if (error || !users) {
             return res.status(400).json({ error: "Unable to create an account" })
         }
+
+        const token =new Token({
+          token:crypto.randomBytes(16).toString('hex'),
+          userId:users._id
+        })
+
+        token.save((error)=>{
+          if(error){
+            return res.status(400).json({error:error})
+          }
+          sendEmail({
+            from:'no-reply@yourwebapplication.com',
+            to:users.email,
+            subject:'Email verification Link',
+            text:`Hello, \n\n please Verify your account by clicking the below link: \n http:\/\/req.headers.host\/api\/confirmation\/token.token `
+          })
+        })
+
+
         res.json({ users })
     })
 }
@@ -30,6 +53,9 @@ exports.signIn=(req,res)=>{
 
     if(!user.authenticate(passowrd)){
       return res.status(400).json({error:"email and password doesnot match"})
+    }
+    if(!user.isVerified){
+      return res.status(400).json({error:"you need to verify your account before login"})
     }
 
     //now generate token with id and jwt server
