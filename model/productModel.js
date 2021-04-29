@@ -5,7 +5,7 @@ const {ObjectId}=mongoose.Schema
 const productSchema=new mongoose.Schema({
 
   product_name:{
-    type:string,
+    type:String,
     required:true,
     trim:true,
   },
@@ -21,7 +21,7 @@ const productSchema=new mongoose.Schema({
   },
 
   product_description:{
-    type:string,
+    type:String,
     required:true,
   },
 
@@ -40,6 +40,11 @@ const productSchema=new mongoose.Schema({
   sold_quantity:{
     type:Number,
     default:0
+  },
+
+  product_image:{
+    type:String,
+    required:true
   }
 
 

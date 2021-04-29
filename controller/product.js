@@ -8,7 +8,8 @@ exports.postProduct = (req, res) => {
         product_quantity: req.body.product_quantity,
         product_rating: req.body.product_rating,
         category: req.body.category,
-        product_description: req.body.product_description
+        product_description: req.body.product_description,
+        product_image:req.file.path
 
     })
     product.save((error, products) => {
@@ -58,8 +59,8 @@ exports.deleteProduct=(req,res)=>{
 //to update Product
 exports.updateProduct=(req,res)=>{
     let product = req.product
-    product.rodyct_name = req.body.product_name,
-    product.prodct_price = req.body.product_price,
+    product.product_name = req.body.product_name,
+    product.product_price = req.body.product_price,
     product.product_quantity = req.body.product_quantity,
     product.product_description = req.body.product_description,
     product.category = req.body.category
