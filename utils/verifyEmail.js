@@ -24,4 +24,4 @@ const sendEmail = (options) => {
 
 }
 
-module.exorts=sendEmail
+module.exports=sendEmail
