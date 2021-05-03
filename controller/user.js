@@ -214,3 +214,80 @@ exports.signOut = (req, res) => {
     message: "signout success"
   })
 }
+
+//forget _password
+exports.forgetPassword=(req,res)=>{
+  User.findOne({email:req.body.email},(error,user)=>{
+    if(error || !user){
+      return res.status(400).json({error:"sorry the email you provided doesnot exists"})
+    }
+
+    const token = new Token({
+      userId:user._id,
+      token:crypto.randomBytes(16).toString('hex')
+    })
+    token.save((error)=>{
+      if(error){
+        return res.status(400).json({error:"something went wrong"})
+      }
+
+      //send mail
+      sendEmail({
+        from: 'no-reply@yourwebapplication.com',
+        to: user.email,
+        subject: 'password reset Link',
+        text: `Hello, \n\n please reset your password by clicking the below link: \n http:\/\/${req.headers.host}\/api\/resetpassword\/${token.token} `
+      })
+
+    })
+    res.json({message:"password reset link been sent your email"})
+  })
+}
+
+//password reset
+exports.passwordReset=(req,res)=>{
+  //at first find the valid token
+  Token.findOne({token:req.params.token},(error,token)=>{
+    if(error || !token){
+      return res.status(400).json({error:"invalid token or toke may have expired"})
+    }
+
+    //if token found find the valid user
+    User.findOne({
+      _id :token.userId,
+      email:req.body.email
+    },(error,user)=>{
+      if(error || !user){
+        return res.status(400).json({error:"sorry the email you provided not associated with this token"})
+      }
+
+      //upadate new password
+      user.password=req.body.password
+      user.save((error)=>{
+        if(error){
+          return res.json({error:"failed to reset password"})
+        }
+      })
+      res.json({message:"password has been reset succesfully"})
+    })
+  })
+}
+
+//access only for authenticate user
+exports.isAuth=(req,res,next)=>{
+  let user = req.user && req.auth && req.user._id ===req.auth._id
+  if(!user){
+    return res.status(400).json({error:"access denied"})
+  }
+  next()
+}
+
+
+
+//check if admin or not
+exports.isAdmin = (req,res,next)=>{
+  if(req.user.role===0){
+    return res.status(400).json({error:"access denied, this is a admin resource"})
+  }
+  next()
+}
