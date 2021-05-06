@@ -23,9 +23,9 @@ var CLOSE_EVENT = 'Close',
 	CHANGE_EVENT = 'Change',
 	NS = 'mfp',
 	EVENT_NS = '.' + NS,
-	READY_CLASS = 'mfp-ready',
-	REMOVING_CLASS = 'mfp-removing',
-	PREVENT_CLOSE_CLASS = 'mfp-prevent-close';
+	READY_className = 'mfp-ready',
+	REMOVING_className = 'mfp-removing',
+	PREVENT_CLOSE_className = 'mfp-prevent-close';
 
 
 /**
@@ -39,7 +39,7 @@ var mfp, // As we have only one instance of MagnificPopup object, we define it l
 	_body,
 	_document,
 	_prevContentType,
-	_wrapClasses,
+	_wrapclassNamees,
 	_currPopupType;
 
 
@@ -49,9 +49,9 @@ var mfp, // As we have only one instance of MagnificPopup object, we define it l
 var _mfpOn = function(name, f) {
 		mfp.ev.on(NS + name + EVENT_NS, f);
 	},
-	_getEl = function(className, appendTo, html, raw) {
+	_getEl = function(classNameName, appendTo, html, raw) {
 		var el = document.createElement('div');
-		el.className = 'mfp-'+className;
+		el.classNameName = 'mfp-'+classNameName;
 		if(html) {
 			el.innerHTML = html;
 		}
@@ -177,7 +177,7 @@ MagnificPopup.prototype = {
 		}
 		
 		mfp.types = []; 
-		_wrapClasses = '';
+		_wrapclassNamees = '';
 		if(data.mainEl && data.mainEl.length) {
 			mfp.ev = data.mainEl.eq(0);
 		} else {
@@ -248,12 +248,12 @@ MagnificPopup.prototype = {
 				_mfpOn(MARKUP_PARSE_EVENT, function(e, template, values, item) {
 					values.close_replaceWith = _getCloseBtn(item.type);
 				});
-				_wrapClasses += ' mfp-close-btn-in';
+				_wrapclassNamees += ' mfp-close-btn-in';
 			}
 		}
 
 		if(mfp.st.alignTop) {
-			_wrapClasses += ' mfp-align-top';
+			_wrapclassNamees += ' mfp-align-top';
 		}
 
 	
@@ -294,11 +294,11 @@ MagnificPopup.prototype = {
 
 
 		if(!mfp.st.closeOnContentClick) {
-			_wrapClasses += ' mfp-auto-cursor';
+			_wrapclassNamees += ' mfp-auto-cursor';
 		}
 		
-		if(_wrapClasses)
-			mfp.wrap.addClass(_wrapClasses);
+		if(_wrapclassNamees)
+			mfp.wrap.addclassName(_wrapclassNamees);
 
 
 		// this triggers recalculation of layout, so we get it once to not to trigger twice
@@ -327,12 +327,12 @@ MagnificPopup.prototype = {
 
 		
 		
-		var classesToadd = mfp.st.mainClass;
+		var classNameesToadd = mfp.st.mainclassName;
 		if(mfp.isIE7) {
-			classesToadd += ' mfp-ie7';
+			classNameesToadd += ' mfp-ie7';
 		}
-		if(classesToadd) {
-			mfp._addClassToMFP( classesToadd );
+		if(classNameesToadd) {
+			mfp._addclassNameToMFP( classNameesToadd );
 		}
 
 		// add content
@@ -356,11 +356,11 @@ MagnificPopup.prototype = {
 		setTimeout(function() {
 			
 			if(mfp.content) {
-				mfp._addClassToMFP(READY_CLASS);
+				mfp._addclassNameToMFP(READY_className);
 				mfp._setFocus();
 			} else {
-				// if content is not defined (not loaded e.t.c) we add class only for BG
-				mfp.bgOverlay.addClass(READY_CLASS);
+				// if content is not defined (not loaded e.t.c) we add className only for BG
+				mfp.bgOverlay.addclassName(READY_className);
 			}
 			
 			// Trap the focus in popup
@@ -385,7 +385,7 @@ MagnificPopup.prototype = {
 		mfp.isOpen = false;
 		// for CSS3 animation
 		if(mfp.st.removalDelay && !mfp.isLowIE && mfp.supportsTransition )  {
-			mfp._addClassToMFP(REMOVING_CLASS);
+			mfp._addclassNameToMFP(REMOVING_className);
 			setTimeout(function() {
 				mfp._close();
 			}, mfp.st.removalDelay);
@@ -400,17 +400,17 @@ MagnificPopup.prototype = {
 	_close: function() {
 		_mfpTrigger(CLOSE_EVENT);
 
-		var classesToRemove = REMOVING_CLASS + ' ' + READY_CLASS + ' ';
+		var classNameesToRemove = REMOVING_className + ' ' + READY_className + ' ';
 
 		mfp.bgOverlay.detach();
 		mfp.wrap.detach();
 		mfp.container.empty();
 
-		if(mfp.st.mainClass) {
-			classesToRemove += mfp.st.mainClass + ' ';
+		if(mfp.st.mainclassName) {
+			classNameesToRemove += mfp.st.mainclassName + ' ';
 		}
 
-		mfp._removeClassFromMFP(classesToRemove);
+		mfp._removeclassNameFromMFP(classNameesToRemove);
 
 		if(mfp.fixedContentPos) {
 			var windowStyles = {marginRight: ''};
@@ -426,9 +426,9 @@ MagnificPopup.prototype = {
 		mfp.ev.off(EVENT_NS);
 
 		// clean up DOM elements that aren't removed
-		mfp.wrap.attr('class', 'mfp-wrap').removeAttr('style');
-		mfp.bgOverlay.attr('class', 'mfp-bg');
-		mfp.container.attr('class', 'mfp-container');
+		mfp.wrap.attr('className', 'mfp-wrap').removeAttr('style');
+		mfp.bgOverlay.attr('className', 'mfp-bg');
+		mfp.container.attr('className', 'mfp-container');
 
 		// remove close button from target element
 		if(mfp.st.showCloseBtn &&
@@ -512,7 +512,7 @@ MagnificPopup.prototype = {
 		}
 
 		if(_prevContentType && _prevContentType !== item.type) {
-			mfp.container.removeClass('mfp-'+_prevContentType+'-holder');
+			mfp.container.removeclassName('mfp-'+_prevContentType+'-holder');
 		}
 		
 		var newContent = mfp['get' + type.charAt(0).toUpperCase() + type.slice(1)](item, mfp.currTemplate[type]);
@@ -551,7 +551,7 @@ MagnificPopup.prototype = {
 		}
 
 		_mfpTrigger(BEFORE_APPEND_EVENT);
-		mfp.container.addClass('mfp-'+type+'-holder');
+		mfp.container.addclassName('mfp-'+type+'-holder');
 
 		mfp.contentContainer.append(mfp.content);
 	},
@@ -576,9 +576,9 @@ MagnificPopup.prototype = {
 		if(item.el) {
 			var types = mfp.types;
 
-			// check for 'mfp-TYPE' class
+			// check for 'mfp-TYPE' className
 			for(var i = 0; i < types.length; i++) {
-				if( item.el.hasClass('mfp-'+types[i]) ) {
+				if( item.el.hasclassName('mfp-'+types[i]) ) {
 					type = types[i];
 					break;
 				}
@@ -676,7 +676,7 @@ MagnificPopup.prototype = {
 
 		if(mfp.preloader) {
 			if(_prevStatus !== status) {
-				mfp.container.removeClass('mfp-s-'+_prevStatus);
+				mfp.container.removeclassName('mfp-s-'+_prevStatus);
 			}
 
 			if(!text && status === 'loading') {
@@ -699,7 +699,7 @@ MagnificPopup.prototype = {
 				e.stopImmediatePropagation();
 			});
 
-			mfp.container.addClass('mfp-s-'+status);
+			mfp.container.addclassName('mfp-s-'+status);
 			_prevStatus = status;
 		}
 	},
@@ -712,7 +712,7 @@ MagnificPopup.prototype = {
 	// "target" is an element that was clicked
 	_checkIfClose: function(target) {
 
-		if($(target).hasClass(PREVENT_CLOSE_CLASS)) {
+		if($(target).hasclassName(PREVENT_CLOSE_className)) {
 			return;
 		}
 
@@ -724,7 +724,7 @@ MagnificPopup.prototype = {
 		} else {
 
 			// We close the popup if click is on close button or on preloader. Or if there is no content.
-			if(!mfp.content || $(target).hasClass('mfp-close') || (mfp.preloader && target === mfp.preloader[0]) ) {
+			if(!mfp.content || $(target).hasclassName('mfp-close') || (mfp.preloader && target === mfp.preloader[0]) ) {
 				return true;
 			}
 
@@ -743,13 +743,13 @@ MagnificPopup.prototype = {
 		}
 		return false;
 	},
-	_addClassToMFP: function(cName) {
-		mfp.bgOverlay.addClass(cName);
-		mfp.wrap.addClass(cName);
+	_addclassNameToMFP: function(cName) {
+		mfp.bgOverlay.addclassName(cName);
+		mfp.wrap.addclassName(cName);
 	},
-	_removeClassFromMFP: function(cName) {
-		this.bgOverlay.removeClass(cName);
-		mfp.wrap.removeClass(cName);
+	_removeclassNameFromMFP: function(cName) {
+		this.bgOverlay.removeclassName(cName);
+		mfp.wrap.removeclassName(cName);
 	},
 	_hasScrollBar: function(winHeight) {
 		return (  (mfp.isIE7 ? _document.height() : document.body.scrollHeight) > (winHeight || _window.height()) );
@@ -788,7 +788,7 @@ MagnificPopup.prototype = {
 						if(el.is('img')) {
 							el.attr('src', value);
 						} else {
-							el.replaceWith( '<img src="'+value+'" class="' + el.attr('class') + '" />' );
+							el.replaceWith( '<img src="'+value+'" className="' + el.attr('className') + '" />' );
 						}
 					} else {
 						el.attr(arr[1], value);
@@ -865,7 +865,7 @@ $.magnificPopup = {
 
 		midClick: false,
 
-		mainClass: '',
+		mainclassName: '',
 
 		preloader: true,
 
@@ -893,7 +893,7 @@ $.magnificPopup = {
 
 		overflowY: 'auto',
 
-		closeMarkup: '<button title="%title%" type="button" class="mfp-close">&times;</button>',
+		closeMarkup: '<button title="%title%" type="button" className="mfp-close">&times;</button>',
 
 		tClose: 'Close (Esc)',
 
@@ -978,19 +978,19 @@ console.log('Test #2:', performance.now() - start);
 /*>>inline*/
 
 var INLINE_NS = 'inline',
-	_hiddenClass,
+	_hiddenclassName,
 	_inlinePlaceholder, 
 	_lastInlineElement,
 	_putInlineElementsBack = function() {
 		if(_lastInlineElement) {
-			_inlinePlaceholder.after( _lastInlineElement.addClass(_hiddenClass) ).detach();
+			_inlinePlaceholder.after( _lastInlineElement.addclassName(_hiddenclassName) ).detach();
 			_lastInlineElement = null;
 		}
 	};
 
 $.magnificPopup.registerModule(INLINE_NS, {
 	options: {
-		hiddenClass: 'hide', // will be appended with `mfp-` prefix
+		hiddenclassName: 'hide', // will be appended with `mfp-` prefix
 		markup: '',
 		tNotFound: 'Content not found'
 	},
@@ -1018,12 +1018,12 @@ $.magnificPopup.registerModule(INLINE_NS, {
 					var parent = el[0].parentNode;
 					if(parent && parent.tagName) {
 						if(!_inlinePlaceholder) {
-							_hiddenClass = inlineSt.hiddenClass;
-							_inlinePlaceholder = _getEl(_hiddenClass);
-							_hiddenClass = 'mfp-'+_hiddenClass;
+							_hiddenclassName = inlineSt.hiddenclassName;
+							_inlinePlaceholder = _getEl(_hiddenclassName);
+							_hiddenclassName = 'mfp-'+_hiddenclassName;
 						}
 						// replace target inline element with placeholder
-						_lastInlineElement = el.after(_inlinePlaceholder).detach().removeClass(_hiddenClass);
+						_lastInlineElement = el.after(_inlinePlaceholder).detach().removeclassName(_hiddenclassName);
 					}
 
 					mfp.updateStatus('ready');
@@ -1050,7 +1050,7 @@ var AJAX_NS = 'ajax',
 	_ajaxCur,
 	_removeAjaxCursor = function() {
 		if(_ajaxCur) {
-			_body.removeClass(_ajaxCur);
+			_body.removeclassName(_ajaxCur);
 		}
 	},
 	_destroyAjaxRequest = function() {
@@ -1079,7 +1079,7 @@ $.magnificPopup.registerModule(AJAX_NS, {
 		getAjax: function(item) {
 
 			if(_ajaxCur)
-				_body.addClass(_ajaxCur);
+				_body.addclassName(_ajaxCur);
 
 			mfp.updateStatus('loading');
 
@@ -1102,7 +1102,7 @@ $.magnificPopup.registerModule(AJAX_NS, {
 					mfp._setFocus();
 
 					setTimeout(function() {
-						mfp.wrap.addClass(READY_CLASS);
+						mfp.wrap.addclassName(READY_className);
 					}, 16);
 
 					mfp.updateStatus('ready');
@@ -1152,14 +1152,14 @@ var _imgInterval,
 $.magnificPopup.registerModule('image', {
 
 	options: {
-		markup: '<div class="mfp-figure">'+
-					'<div class="mfp-close"></div>'+
+		markup: '<div className="mfp-figure">'+
+					'<div className="mfp-close"></div>'+
 					'<figure>'+
-						'<div class="mfp-img"></div>'+
+						'<div className="mfp-img"></div>'+
 						'<figcaption>'+
-							'<div class="mfp-bottom-bar">'+
-								'<div class="mfp-title"></div>'+
-								'<div class="mfp-counter"></div>'+
+							'<div className="mfp-bottom-bar">'+
+								'<div className="mfp-title"></div>'+
+								'<div className="mfp-counter"></div>'+
 							'</div>'+
 						'</figcaption>'+
 					'</figure>'+
@@ -1179,13 +1179,13 @@ $.magnificPopup.registerModule('image', {
 
 			_mfpOn(OPEN_EVENT+ns, function() {
 				if(mfp.currItem.type === 'image' && imgSt.cursor) {
-					_body.addClass(imgSt.cursor);
+					_body.addclassName(imgSt.cursor);
 				}
 			});
 
 			_mfpOn(CLOSE_EVENT+ns, function() {
 				if(imgSt.cursor) {
-					_body.removeClass(imgSt.cursor);
+					_body.removeclassName(imgSt.cursor);
 				}
 				_window.off('resize' + EVENT_NS);
 			});
@@ -1223,7 +1223,7 @@ $.magnificPopup.registerModule('image', {
 
 				if(item.imgHidden) {
 					if(mfp.content)
-						mfp.content.removeClass('mfp-loading');
+						mfp.content.removeclassName('mfp-loading');
 					
 					item.imgHidden = false;
 				}
@@ -1322,7 +1322,7 @@ $.magnificPopup.registerModule('image', {
 			var el = template.find('.mfp-img');
 			if(el.length) {
 				var img = document.createElement('img');
-				img.className = 'mfp-img';
+				img.classNameName = 'mfp-img';
 				item.img = $(img).on('load.mfploader', onLoadComplete).on('error.mfploader', onLoadError);
 				img.src = item.src;
 
@@ -1347,10 +1347,10 @@ $.magnificPopup.registerModule('image', {
 				if(_imgInterval) clearInterval(_imgInterval);
 
 				if(item.loadError) {
-					template.addClass('mfp-loading');
+					template.addclassName('mfp-loading');
 					mfp.updateStatus('error', imgSt.tError.replace('%url%', item.src) );
 				} else {
-					template.removeClass('mfp-loading');
+					template.removeclassName('mfp-loading');
 					mfp.updateStatus('ready');
 				}
 				return template;
@@ -1361,7 +1361,7 @@ $.magnificPopup.registerModule('image', {
 
 			if(!item.hasSize) {
 				item.imgHidden = true;
-				template.addClass('mfp-loading');
+				template.addclassName('mfp-loading');
 				mfp.findImageSize(item);
 			} 
 
@@ -1407,7 +1407,7 @@ $.magnificPopup.registerModule('zoom', {
 
 			var duration = zoomSt.duration,
 				getElToAnimate = function(image) {
-					var newImg = image.clone().removeAttr('style').removeAttr('class').addClass('mfp-animated-image'),
+					var newImg = image.clone().removeAttr('style').removeAttr('className').addclassName('mfp-animated-image'),
 						transition = 'all '+(zoomSt.duration/1000)+'s ' + zoomSt.easing,
 						cssObj = {
 							position: 'fixed',
@@ -1588,9 +1588,9 @@ var IFRAME_NS = 'iframe',
 $.magnificPopup.registerModule(IFRAME_NS, {
 
 	options: {
-		markup: '<div class="mfp-iframe-scaler">'+
-					'<div class="mfp-close"></div>'+
-					'<iframe class="mfp-iframe" src="//about:blank" frameborder="0" allowfullscreen></iframe>'+
+		markup: '<div className="mfp-iframe-scaler">'+
+					'<div className="mfp-close"></div>'+
+					'<iframe className="mfp-iframe" src="//about:blank" frameborder="0" allowfullscreen></iframe>'+
 				'</div>',
 
 		srcAction: 'iframe_src',
@@ -1691,7 +1691,7 @@ $.magnificPopup.registerModule('gallery', {
 
 	options: {
 		enabled: false,
-		arrowMarkup: '<button title="%title%" type="button" class="mfp-arrow mfp-arrow-%dir%"></button>',
+		arrowMarkup: '<button title="%title%" type="button" className="mfp-arrow mfp-arrow-%dir%"></button>',
 		preload: [0,2],
 		navigateByImgClick: true,
 		arrows: true,
@@ -1712,7 +1712,7 @@ $.magnificPopup.registerModule('gallery', {
 			
 			if(!gSt || !gSt.enabled ) return false;
 
-			_wrapClasses += ' mfp-gallery';
+			_wrapclassNamees += ' mfp-gallery';
 
 			_mfpOn(OPEN_EVENT+ns, function() {
 
@@ -1748,8 +1748,8 @@ $.magnificPopup.registerModule('gallery', {
 			_mfpOn('BuildControls' + ns, function() {
 				if(mfp.items.length > 1 && gSt.arrows && !mfp.arrowLeft) {
 					var markup = gSt.arrowMarkup,
-						arrowLeft = mfp.arrowLeft = $( markup.replace(/%title%/gi, gSt.tPrev).replace(/%dir%/gi, 'left') ).addClass(PREVENT_CLOSE_CLASS),			
-						arrowRight = mfp.arrowRight = $( markup.replace(/%title%/gi, gSt.tNext).replace(/%dir%/gi, 'right') ).addClass(PREVENT_CLOSE_CLASS);
+						arrowLeft = mfp.arrowLeft = $( markup.replace(/%title%/gi, gSt.tPrev).replace(/%dir%/gi, 'left') ).addclassName(PREVENT_CLOSE_className),			
+						arrowRight = mfp.arrowRight = $( markup.replace(/%title%/gi, gSt.tNext).replace(/%dir%/gi, 'right') ).addclassName(PREVENT_CLOSE_className);
 
 					var eName = supportsFastClick ? 'mfpFastClick' : 'click';
 					arrowLeft[eName](function() {
@@ -1759,7 +1759,7 @@ $.magnificPopup.registerModule('gallery', {
 						mfp.next();
 					});	
 
-					// Polyfill for :before and :after (adds elements with classes mfp-a and mfp-b)
+					// Polyfill for :before and :after (adds elements with classNamees mfp-a and mfp-b)
 					if(mfp.isIE7) {
 						_getEl('b', arrowLeft[0], false, true);
 						_getEl('a', arrowLeft[0], false, true);
@@ -1835,7 +1835,7 @@ $.magnificPopup.registerModule('gallery', {
 			_mfpTrigger('LazyLoad', item);
 
 			if(item.type === 'image') {
-				item.img = $('<img class="mfp-img" />').on('load.mfploader', function() {
+				item.img = $('<img className="mfp-img" />').on('load.mfploader', function() {
 					item.hasSize = true;
 				}).on('error.mfploader', function() {
 					item.hasSize = true;

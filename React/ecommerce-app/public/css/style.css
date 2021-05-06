@@ -755,7 +755,7 @@ h3.tittle-w3l span {
     padding: 8px 10px;
 }
 
-.bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+.bootstrap-select:not([className*="col-"]):not([className*="form-control"]):not(.input-group-btn) {
     width: 260px;
 }
 

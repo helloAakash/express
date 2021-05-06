@@ -38,7 +38,7 @@
         }
 
         var posX = e.pageX,posY = e.pageY,zoomViewPositionX;
-        $('body').prepend('<div class="imagezoom-cursor">&nbsp;</div><div class="imagezoom-view"><img src="'+imageSrc+'"></div>');
+        $('body').prepend('<div className="imagezoom-cursor">&nbsp;</div><div className="imagezoom-view"><img src="'+imageSrc+'"></div>');
 
         if(settings.zoomviewposition == 'right'){
           zoomViewPositionX = (offset.left+imageWidth+settings.zoomviewmargin);

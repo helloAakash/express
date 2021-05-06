@@ -270,7 +270,7 @@
      transition: opacity 0.3s 0s, visibility 0s 0.3s, transform 0.3s 0s;
    }
    .open-to-left .cd-dropdown {
-     /* use the .open-to-left class if you want to open the dropdown on the left */
+     /* use the .open-to-left className if you want to open the dropdown on the left */
      right: 0;
      left: auto;
    }
@@ -628,7 +628,7 @@
    .open-to-left .cd-dropdown-content .cd-secondary-dropdown,
    .open-to-left .cd-dropdown-content .cd-dropdown-gallery,
    .open-to-left .cd-dropdown-content .cd-dropdown-icons {
-     /* use the .open-to-left class if you want to open the dropdown on the left */
+     /* use the .open-to-left className if you want to open the dropdown on the left */
      left: auto;
      right: 100%;
    }

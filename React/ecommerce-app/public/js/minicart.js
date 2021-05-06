@@ -1909,7 +1909,7 @@ var defaults = module.exports = {
 
     duration: 30,
 
-    template: '<%var items = cart.items();var settings = cart.settings();var hasItems = !!items.length;var priceFormat = { format: true, currency: cart.settings("currency_code") };var totalFormat = { format: true, showCode: true };%><form method="post" class="<% if (!hasItems) { %>minicarts-empty<% } %>" action="<%= config.action %>" target="<%= config.target %>">    <button type="button" class="minicarts-closer">&times;</button>    <ul>        <% for (var i= 0, idx = i + 1, len = items.length; i < len; i++, idx++) { %>        <li class="minicarts-item">            <div class="minicarts-details-name">                <a class="minicarts-name" href="<%= items[i].get("href") %>"><%= items[i].get("item_name") %></a>                <ul class="minicarts-attributes">                    <% if (items[i].get("item_number")) { %>                    <li>                        <%= items[i].get("item_number") %>                        <input type="hidden" name="item_number_<%= idx %>" value="<%= items[i].get("item_number") %>" />                    </li>                    <% } %>                    <% if (items[i].discount()) { %>                    <li>                        <%= config.strings.discount %> <%= items[i].discount(priceFormat) %>                        <input type="hidden" name="discount_amount_<%= idx %>" value="<%= items[i].discount() %>" />                    </li>                    <% } %>                    <% for (var options = items[i].options(), j = 0, len2 = options.length; j < len2; j++) { %>                        <li>                            <%= options[j].key %>: <%= options[j].value %>                            <input type="hidden" name="on<%= j %>_<%= idx %>" value="<%= options[j].key %>" />                            <input type="hidden" name="os<%= j %>_<%= idx %>" value="<%= options[j].value %>" />                        </li>                    <% } %>                </ul>            </div>            <div class="minicarts-details-quantity">                <input class="minicarts-quantity" data-minicarts-idx="<%= i %>" name="quantity_<%= idx %>" type="text" pattern="[0-9]*" value="<%= items[i].get("quantity") %>" autocomplete="off" />            </div>            <div class="minicarts-details-remove">                <button type="button" class="minicarts-remove" data-minicarts-idx="<%= i %>">&times;</button>            </div>            <div class="minicarts-details-price">                <span class="minicarts-price"><%= items[i].total(priceFormat) %></span>            </div>            <input type="hidden" name="item_name_<%= idx %>" value="<%= items[i].get("item_name") %>" />            <input type="hidden" name="amount_<%= idx %>" value="<%= items[i].amount() %>" />            <input type="hidden" name="shipping_<%= idx %>" value="<%= items[i].get("shipping") %>" />            <input type="hidden" name="shipping2_<%= idx %>" value="<%= items[i].get("shipping2") %>" />        </li>        <% } %>    </ul>    <div class="minicarts-footer">        <% if (hasItems) { %>            <div class="minicarts-subtotal">                <%= config.strings.subtotal %> <%= cart.total(totalFormat) %>            </div>            <button class="minicarts-submit" type="submit" data-minicarts-alt="<%= config.strings.buttonAlt %>"><%- config.strings.button %></button>        <% } else { %>            <p class="minicarts-empty-text"><%= config.strings.empty %></p>        <% } %>    </div>    <input type="hidden" name="cmd" value="_cart" />    <input type="hidden" name="upload" value="1" />    <% for (var key in settings) { %>        <input type="hidden" name="<%= key %>" value="<%= settings[key] %>" />    <% } %></form>',
+    template: '<%var items = cart.items();var settings = cart.settings();var hasItems = !!items.length;var priceFormat = { format: true, currency: cart.settings("currency_code") };var totalFormat = { format: true, showCode: true };%><form method="post" className="<% if (!hasItems) { %>minicarts-empty<% } %>" action="<%= config.action %>" target="<%= config.target %>">    <button type="button" className="minicarts-closer">&times;</button>    <ul>        <% for (var i= 0, idx = i + 1, len = items.length; i < len; i++, idx++) { %>        <li className="minicarts-item">            <div className="minicarts-details-name">                <a className="minicarts-name" href="<%= items[i].get("href") %>"><%= items[i].get("item_name") %></a>                <ul className="minicarts-attributes">                    <% if (items[i].get("item_number")) { %>                    <li>                        <%= items[i].get("item_number") %>                        <input type="hidden" name="item_number_<%= idx %>" value="<%= items[i].get("item_number") %>" />                    </li>                    <% } %>                    <% if (items[i].discount()) { %>                    <li>                        <%= config.strings.discount %> <%= items[i].discount(priceFormat) %>                        <input type="hidden" name="discount_amount_<%= idx %>" value="<%= items[i].discount() %>" />                    </li>                    <% } %>                    <% for (var options = items[i].options(), j = 0, len2 = options.length; j < len2; j++) { %>                        <li>                            <%= options[j].key %>: <%= options[j].value %>                            <input type="hidden" name="on<%= j %>_<%= idx %>" value="<%= options[j].key %>" />                            <input type="hidden" name="os<%= j %>_<%= idx %>" value="<%= options[j].value %>" />                        </li>                    <% } %>                </ul>            </div>            <div className="minicarts-details-quantity">                <input className="minicarts-quantity" data-minicarts-idx="<%= i %>" name="quantity_<%= idx %>" type="text" pattern="[0-9]*" value="<%= items[i].get("quantity") %>" autocomplete="off" />            </div>            <div className="minicarts-details-remove">                <button type="button" className="minicarts-remove" data-minicarts-idx="<%= i %>">&times;</button>            </div>            <div className="minicarts-details-price">                <span className="minicarts-price"><%= items[i].total(priceFormat) %></span>            </div>            <input type="hidden" name="item_name_<%= idx %>" value="<%= items[i].get("item_name") %>" />            <input type="hidden" name="amount_<%= idx %>" value="<%= items[i].amount() %>" />            <input type="hidden" name="shipping_<%= idx %>" value="<%= items[i].get("shipping") %>" />            <input type="hidden" name="shipping2_<%= idx %>" value="<%= items[i].get("shipping2") %>" />        </li>        <% } %>    </ul>    <div className="minicarts-footer">        <% if (hasItems) { %>            <div className="minicarts-subtotal">                <%= config.strings.subtotal %> <%= cart.total(totalFormat) %>            </div>            <button className="minicarts-submit" type="submit" data-minicarts-alt="<%= config.strings.buttonAlt %>"><%- config.strings.button %></button>        <% } else { %>            <p className="minicarts-empty-text"><%= config.strings.empty %></p>        <% } %>    </div>    <input type="hidden" name="cmd" value="_cart" />    <input type="hidden" name="upload" value="1" />    <% for (var key in settings) { %>        <input type="hidden" name="<%= key %>" value="<%= settings[key] %>" />    <% } %></form>',
 
     styles: '@keyframes pop-in {    0% { opacity: 0; transform: scale(0.1); }    60% { opacity: 1; transform: scale(1.2); }    100% { transform: scale(1); }}@-webkit-keyframes pop-in {    0% { opacity: 0; -webkit-transform: scale(0.1); }    60% { opacity: 1; -webkit-transform: scale(1.2); }    100% { -webkit-transform: scale(1); }}@-moz-keyframes pop-in {    0% { opacity: 0; -moz-transform: scale(0.1); }    60% { opacity: 1; -moz-transform: scale(1.2); }    100% { -moz-transform: scale(1); }}.minicarts-showing #PPminicarts {    display: block;    transform: translateZ(0);    -webkit-transform: translateZ(0);    -moz-transform: translateZ(0);    animation: pop-in 0.25s;    -webkit-animation: pop-in 0.25s;    -moz-animation: pop-in 0.25s;}#PPminicarts {    display: none;    position: fixed;    left: 50%;    top: 75px;}#PPminicarts form {    position: relative;    width: 400px;    max-height: 400px;    margin-left: -200px;    padding: 10px 10px 40px;    background: #fbfbfb;    border: 1px solid #d7d7d7;    border-radius: 4px;    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);    font: 15px/normal arial, helvetica;    color: #333;}#PPminicarts form.minicarts-empty {    padding-bottom: 10px;    font-size: 16px;    font-weight: bold;}#PPminicarts ul {    clear: both;    float: left;    width: 380px;    margin: 5px 0 20px;    padding: 10px;    list-style-type: none;    background: #fff;    border: 1px solid #ccc;    border-radius: 4px;    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);}#PPminicarts .minicarts-empty ul {    display: none;}#PPminicarts .minicarts-closer {    float: right;    margin: -12px -10px 0;    padding: 10px;    background: 0;    border: 0;    font-size: 18px;    cursor: pointer;    font-weight: bold;}#PPminicarts .minicarts-item {    clear: left;    padding: 6px 0;    min-height: 25px;}#PPminicarts .minicarts-item + .minicarts-item {    border-top: 1px solid #f2f2f2;}#PPminicarts .minicarts-item a {    color: #333;    text-decoration: none;}#PPminicarts .minicarts-details-name {    float: left;    width: 62%;}#PPminicarts .minicarts-details-quantity {    float: left;    width: 15%;}#PPminicarts .minicarts-details-remove {    float: left;    width: 7%;}#PPminicarts .minicarts-details-price {    float: left;    width: 16%;    text-align: right;}#PPminicarts .minicarts-attributes {    margin: 0;    padding: 0;    background: transparent;    border: 0;    border-radius: 0;    box-shadow: none;    color: #999;    font-size: 12px;    line-height: 22px;}#PPminicarts .minicarts-attributes li {    display: inline;}#PPminicarts .minicarts-attributes li:after {    content: ",";}#PPminicarts .minicarts-attributes li:last-child:after {    content: "";}#PPminicarts .minicarts-quantity {    width: 30px;    height: 18px;    padding: 2px 4px;    border: 1px solid #ccc;    border-radius: 4px;    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);    font-size: 13px;    text-align: right;    transition: border linear 0.2s, box-shadow linear 0.2s;    -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;    -moz-transition: border linear 0.2s, box-shadow linear 0.2s;}#PPminicarts .minicarts-quantity:hover {    border-color: #0078C1;}#PPminicarts .minicarts-quantity:focus {    border-color: #0078C1;    outline: 0;    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 3px rgba(0, 120, 193, 0.4);}#PPminicarts .minicarts-remove {    width: 18px;    height: 19px;    margin: 2px 0 0;    padding: 0;    background: #b7b7b7;    border: 1px solid #a3a3a3;    border-radius: 3px;    color: #fff;    font-size: 13px;    opacity: 0.70;    cursor: pointer;}#PPminicarts .minicarts-remove:hover {    opacity: 1;}#PPminicarts .minicarts-footer {    clear: left;}#PPminicarts .minicarts-subtotal {    position: absolute;    bottom: 17px;    padding-left: 6px;    left: 10px;    font-size: 16px;    font-weight: bold;}#PPminicarts .minicarts-submit {    position: absolute;    bottom: 10px;    right: 10px;    min-width: 153px;    height: 33px;    margin-right: 6px;    padding: 0 9px;    border: 1px solid #ffc727;    border-radius: 5px;    color: #000;    text-shadow: 1px 1px 1px #fff6e9;    cursor: pointer;    background: #ffaa00;    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZjZlOSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmFhMDAiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);    background: -moz-linear-gradient(top, #fff6e9 0%, #ffaa00 100%);    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fff6e9), color-stop(100%,#ffaa00));    background: -webkit-linear-gradient(top, #fff6e9 0%,#ffaa00 100%);    background: -o-linear-gradient(top, #fff6e9 0%,#ffaa00 100%);    background: -ms-linear-gradient(top, #fff6e9 0%,#ffaa00 100%);    background: linear-gradient(to bottom, #fff6e9 0%,#ffaa00 100%);}#PPminicarts .minicarts-submit img {    vertical-align: middle;    padding: 4px 0 0 2px;}',
 
@@ -1947,19 +1947,19 @@ module.exports = {
 
     KEYUP_TIMEOUT: 500,
 
-    SHOWING_CLASS: 'minicarts-showing',
+    SHOWING_className: 'minicarts-showing',
 
-    REMOVE_CLASS: 'minicarts-remove',
+    REMOVE_className: 'minicarts-remove',
 
-    CLOSER_CLASS: 'minicarts-closer',
+    CLOSER_className: 'minicarts-closer',
 
-    QUANTITY_CLASS: 'minicarts-quantity',
+    QUANTITY_className: 'minicarts-quantity',
 
-    ITEM_CLASS: 'minicarts-item',
+    ITEM_className: 'minicarts-item',
 
-    ITEM_CHANGED_CLASS: 'minicarts-item-changed',
+    ITEM_CHANGED_className: 'minicarts-item-changed',
 
-    SUBMIT_CLASS: 'minicarts-submit',
+    SUBMIT_className: 'minicarts-submit',
 
     DATA_IDX: 'data-minicarts-idx'
 
@@ -2300,13 +2300,13 @@ module.exports.add = function add(el, str) {
 
     if (!el) { return false; }
 
-    if (el && el.classList && el.classList.add) {
-        el.classList.add(str);
+    if (el && el.classNameList && el.classNameList.add) {
+        el.classNameList.add(str);
     } else {
         re = new RegExp("\\b" + str + "\\b");
 
-        if (!re.test(el.className)) {
-            el.className += " " + str;
+        if (!re.test(el.classNameName)) {
+            el.classNameName += " " + str;
         }
     }
 };
@@ -2317,13 +2317,13 @@ module.exports.remove = function remove(el, str) {
 
     if (!el) { return false; }
 
-    if (el.classList && el.classList.add) {
-        el.classList.remove(str);
+    if (el.classNameList && el.classNameList.add) {
+        el.classNameList.remove(str);
     } else {
         re = new RegExp("\\b" + str + "\\b");
 
-        if (re.test(el.className)) {
-            el.className = el.className.replace(re, "");
+        if (re.test(el.classNameName)) {
+            el.classNameName = el.classNameName.replace(re, "");
         }
     }
 };
@@ -2812,7 +2812,7 @@ View.prototype.redraw = function redraw() {
  */
 View.prototype.show = function show() {
     if (!this.isShowing) {
-        css.add(document.body, constants.SHOWING_CLASS);
+        css.add(document.body, constants.SHOWING_className);
         this.isShowing = true;
     }
 };
@@ -2823,7 +2823,7 @@ View.prototype.show = function show() {
  */
 View.prototype.hide = function hide() {
     if (this.isShowing) {
-        css.remove(document.body, constants.SHOWING_CLASS);
+        css.remove(document.body, constants.SHOWING_className);
         this.isShowing = false;
     }
 };
@@ -2884,8 +2884,8 @@ View.prototype.addItem = function addItem(idx, data) {
     this.redraw();
     this.show();
 
-    var els = this.el.querySelectorAll('.' + constants.ITEM_CLASS);
-    css.add(els[idx], constants.ITEM_CHANGED_CLASS);
+    var els = this.el.querySelectorAll('.' + constants.ITEM_className);
+    css.add(els[idx], constants.ITEM_CHANGED_className);
 };
 
 
@@ -2899,8 +2899,8 @@ View.prototype.changeItem = function changeItem(idx, data) {
     this.redraw();
     this.show();
 
-    var els = this.el.querySelectorAll('.' + constants.ITEM_CLASS);
-    css.add(els[idx], constants.ITEM_CHANGED_CLASS);
+    var els = this.el.querySelectorAll('.' + constants.ITEM_className);
+    css.add(els[idx], constants.ITEM_CHANGED_className);
 };
 
 
@@ -2931,17 +2931,17 @@ module.exports = viewevents = {
 
     click: function (evt) {
         var target = evt.target,
-            className = target.className;
+            classNameName = target.classNameName;
 
         if (this.isShowing) {
             // Cart close button
-            if (className === constants.CLOSER_CLASS) {
+            if (classNameName === constants.CLOSER_className) {
                 this.hide();
             // Product remove button
-            } else if (className === constants.REMOVE_CLASS) {
+            } else if (classNameName === constants.REMOVE_className) {
                 this.model.cart.remove(target.getAttribute(constants.DATA_IDX));
             // Product quantity input
-            } else if (className === constants.QUANTITY_CLASS) {
+            } else if (classNameName === constants.QUANTITY_className) {
                 target[target.setSelectionRange ? 'setSelectionRange' : 'select'](0, 999);
             // Outside the cart
             } else if (!(/input|button|select|option/i.test(target.tagName))) {
@@ -2964,7 +2964,7 @@ module.exports = viewevents = {
             target = evt.target,
             timer;
 
-        if (target.className === constants.QUANTITY_CLASS) {
+        if (target.classNameName === constants.QUANTITY_className) {
             timer = setTimeout(function () {
                 var idx = parseInt(target.getAttribute(constants.DATA_IDX), 10),
                     cart = that.model.cart,

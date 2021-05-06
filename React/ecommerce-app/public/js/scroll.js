@@ -2,7 +2,7 @@
 
 function scroller() {
 
-  var scroll = $('div.scroll');// Sets the div with a class of scroll as a variable
+  var scroll = $('div.scroll');// Sets the div with a className of scroll as a variable
   
   var height = scroll.height(); // Gets the height of the scroll div
   

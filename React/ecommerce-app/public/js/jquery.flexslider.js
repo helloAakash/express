@@ -170,7 +170,7 @@
           slider.asNav = true;
           slider.animatingTo = Math.floor(slider.currentSlide/slider.move);
           slider.currentItem = slider.currentSlide;
-          slider.slides.removeClass(namespace + "active-slide").eq(slider.currentItem).addClass(namespace + "active-slide");
+          slider.slides.removeclassName(namespace + "active-slide").eq(slider.currentItem).addclassName(namespace + "active-slide");
           if(!msGesture){
               slider.slides.on(eventType, function(e){
                 e.preventDefault();
@@ -184,9 +184,9 @@
                 {
                   posFromX = $slide.offset().left - $(slider).scrollLeft(); // Find position of slide relative to left of slider container
                 }
-                if( posFromX <= 0 && $slide.hasClass( namespace + 'active-slide' ) ) {
+                if( posFromX <= 0 && $slide.hasclassName( namespace + 'active-slide' ) ) {
                   slider.flexAnimate(slider.getTarget("prev"), true);
-                } else if (!$(slider.vars.asNavFor).data('flexslider').animating && !$slide.hasClass(namespace + "active-slide")) {
+                } else if (!$(slider.vars.asNavFor).data('flexslider').animating && !$slide.hasclassName(namespace + "active-slide")) {
                   slider.direction = (slider.currentItem < target) ? "next" : "prev";
                   slider.flexAnimate(target, slider.vars.pauseOnAction, false, true, true);
                 }
@@ -207,7 +207,7 @@
                       e.preventDefault();
                       var $slide = $(this),
                           target = $slide.index();
-                      if (!$(slider.vars.asNavFor).data('flexslider').animating && !$slide.hasClass('active')) {
+                      if (!$(slider.vars.asNavFor).data('flexslider').animating && !$slide.hasclassName('active')) {
                           slider.direction = (slider.currentItem < target) ? "next" : "prev";
                           slider.flexAnimate(target, slider.vars.pauseOnAction, false, true, true);
                       }
@@ -230,7 +230,7 @@
               item,
               slide;
 
-          slider.controlNavScaffold = $('<ol class="'+ namespace + 'control-nav ' + namespace + type + '"></ol>');
+          slider.controlNavScaffold = $('<ol className="'+ namespace + 'control-nav ' + namespace + type + '"></ol>');
 
           if (slider.pagingCount > 1) {
             for (var i = 0; i < slider.pagingCount; i++) {
@@ -240,7 +240,7 @@
               item = (slider.vars.controlNav === "thumbnails") ? '<img src="' + slide.attr( 'data-thumb' ) + '"' + altText + '/>' : '<a href="#">' + j + '</a>';
               if ( 'thumbnails' === slider.vars.controlNav && true === slider.vars.thumbCaptions ) {
                 var captn = slide.attr( 'data-thumbcaption' );
-                if ( '' !== captn && undefined !== captn ) { item += '<span class="' + namespace + 'caption">' + captn + '</span>'; }
+                if ( '' !== captn && undefined !== captn ) { item += '<span className="' + namespace + 'caption">' + captn + '</span>'; }
               }
               slider.controlNavScaffold.append('<li>' + item + '</li>');
               j++;
@@ -260,7 +260,7 @@
               var $this = $(this),
                   target = slider.controlNav.index($this);
 
-              if (!$this.hasClass(namespace + 'active')) {
+              if (!$this.hasclassName(namespace + 'active')) {
                 slider.direction = (target > slider.currentSlide) ? "next" : "prev";
                 slider.flexAnimate(target, slider.vars.pauseOnAction);
               }
@@ -285,7 +285,7 @@
               var $this = $(this),
                   target = slider.controlNav.index($this);
 
-              if (!$this.hasClass(namespace + 'active')) {
+              if (!$this.hasclassName(namespace + 'active')) {
                 (target > slider.currentSlide) ? slider.direction = "next" : slider.direction = "prev";
                 slider.flexAnimate(target, slider.vars.pauseOnAction);
               }
@@ -303,7 +303,7 @@
           slider.controlNav = $('.' + namespace + 'control-nav li ' + selector, (slider.controlsContainer) ? slider.controlsContainer : slider);
         },
         active: function() {
-          slider.controlNav.removeClass(namespace + "active").eq(slider.animatingTo).addClass(namespace + "active");
+          slider.controlNav.removeclassName(namespace + "active").eq(slider.animatingTo).addclassName(namespace + "active");
         },
         update: function(action, pos) {
           if (slider.pagingCount > 1 && action === "add") {
@@ -319,7 +319,7 @@
       },
       directionNav: {
         setup: function() {
-          var directionNavScaffold = $('<ul class="' + namespace + 'direction-nav"><li class="' + namespace + 'nav-prev"><a class="' + namespace + 'prev" href="#">' + slider.vars.prevText + '</a></li><li class="' + namespace + 'nav-next"><a class="' + namespace + 'next" href="#">' + slider.vars.nextText + '</a></li></ul>');
+          var directionNavScaffold = $('<ul className="' + namespace + 'direction-nav"><li className="' + namespace + 'nav-prev"><a className="' + namespace + 'prev" href="#">' + slider.vars.prevText + '</a></li><li className="' + namespace + 'nav-next"><a className="' + namespace + 'next" href="#">' + slider.vars.nextText + '</a></li></ul>');
 
           // CUSTOM DIRECTION NAV:
           if (slider.customDirectionNav) {
@@ -340,7 +340,7 @@
             var target;
 
             if (watchedEvent === "" || watchedEvent === event.type) {
-              target = ($(this).hasClass(namespace + 'next')) ? slider.getTarget('next') : slider.getTarget('prev');
+              target = ($(this).hasclassName(namespace + 'next')) ? slider.getTarget('next') : slider.getTarget('prev');
               slider.flexAnimate(target, slider.vars.pauseOnAction);
             }
 
@@ -352,25 +352,25 @@
           });
         },
         update: function() {
-          var disabledClass = namespace + 'disabled';
+          var disabledclassName = namespace + 'disabled';
           if (slider.pagingCount === 1) {
-            slider.directionNav.addClass(disabledClass).attr('tabindex', '-1');
+            slider.directionNav.addclassName(disabledclassName).attr('tabindex', '-1');
           } else if (!slider.vars.animationLoop) {
             if (slider.animatingTo === 0) {
-              slider.directionNav.removeClass(disabledClass).filter('.' + namespace + "prev").addClass(disabledClass).attr('tabindex', '-1');
+              slider.directionNav.removeclassName(disabledclassName).filter('.' + namespace + "prev").addclassName(disabledclassName).attr('tabindex', '-1');
             } else if (slider.animatingTo === slider.last) {
-              slider.directionNav.removeClass(disabledClass).filter('.' + namespace + "next").addClass(disabledClass).attr('tabindex', '-1');
+              slider.directionNav.removeclassName(disabledclassName).filter('.' + namespace + "next").addclassName(disabledclassName).attr('tabindex', '-1');
             } else {
-              slider.directionNav.removeClass(disabledClass).removeAttr('tabindex');
+              slider.directionNav.removeclassName(disabledclassName).removeAttr('tabindex');
             }
           } else {
-            slider.directionNav.removeClass(disabledClass).removeAttr('tabindex');
+            slider.directionNav.removeclassName(disabledclassName).removeAttr('tabindex');
           }
         }
       },
       pausePlay: {
         setup: function() {
-          var pausePlayScaffold = $('<div class="' + namespace + 'pauseplay"><a href="#"></a></div>');
+          var pausePlayScaffold = $('<div className="' + namespace + 'pauseplay"><a href="#"></a></div>');
 
           // CONTROLSCONTAINER:
           if (slider.controlsContainer) {
@@ -387,7 +387,7 @@
             event.preventDefault();
 
             if (watchedEvent === "" || watchedEvent === event.type) {
-              if ($(this).hasClass(namespace + 'pause')) {
+              if ($(this).hasclassName(namespace + 'pause')) {
                 slider.manualPause = true;
                 slider.manualPlay = false;
                 slider.pause();
@@ -406,7 +406,7 @@
           });
         },
         update: function(state) {
-          (state === "play") ? slider.pausePlay.removeClass(namespace + 'pause').addClass(namespace + 'play').html(slider.vars.playText) : slider.pausePlay.removeClass(namespace + 'play').addClass(namespace + 'pause').html(slider.vars.pauseText);
+          (state === "play") ? slider.pausePlay.removeclassName(namespace + 'pause').addclassName(namespace + 'play').html(slider.vars.playText) : slider.pausePlay.removeclassName(namespace + 'play').addclassName(namespace + 'pause').html(slider.vars.pauseText);
         }
       },
       touch: function() {
@@ -706,11 +706,11 @@
 
           if (Math.ceil((target + 1)/slider.visible) - 1 !== slider.currentSlide && target !== 0) {
             slider.currentItem = target;
-            slider.slides.removeClass(namespace + "active-slide").eq(target).addClass(namespace + "active-slide");
+            slider.slides.removeclassName(namespace + "active-slide").eq(target).addclassName(namespace + "active-slide");
             target = Math.floor(target/slider.visible);
           } else {
             slider.currentItem = target;
-            slider.slides.removeClass(namespace + "active-slide").eq(target).addClass(namespace + "active-slide");
+            slider.slides.removeclassName(namespace + "active-slide").eq(target).addclassName(namespace + "active-slide");
             return false;
           }
         }
@@ -731,8 +731,8 @@
         if (slider.vars.controlNav) { methods.controlNav.active(); }
 
         // !CAROUSEL:
-        // CANDIDATE: slide active class (for add/remove slide)
-        if (!carousel) { slider.slides.removeClass(namespace + 'active-slide').eq(target).addClass(namespace + 'active-slide'); }
+        // CANDIDATE: slide active className (for add/remove slide)
+        if (!carousel) { slider.slides.removeclassName(namespace + 'active-slide').eq(target).addclassName(namespace + 'active-slide'); }
 
         // INFINITE LOOP:
         // CANDIDATE: atEnd
@@ -912,7 +912,7 @@
         var sliderOffset, arr;
 
         if (type === "init") {
-          slider.viewport = $('<div class="' + namespace + 'viewport"></div>').css({"overflow": "hidden", "position": "relative"}).appendTo(slider).append(slider.container);
+          slider.viewport = $('<div className="' + namespace + 'viewport"></div>').css({"overflow": "hidden", "position": "relative"}).appendTo(slider).append(slider.container);
           // INFINITE LOOP:
           slider.cloneCount = 0;
           slider.cloneOffset = 0;
@@ -929,8 +929,8 @@
           slider.cloneOffset = 1;
           // clear out old clones
           if (type !== "init") { slider.container.find('.clone').remove(); }
-          slider.container.append(methods.uniqueID(slider.slides.first().clone().addClass('clone')).attr('aria-hidden', 'true'))
-                          .prepend(methods.uniqueID(slider.slides.last().clone().addClass('clone')).attr('aria-hidden', 'true'));
+          slider.container.append(methods.uniqueID(slider.slides.first().clone().addclassName('clone')).attr('aria-hidden', 'true'))
+                          .prepend(methods.uniqueID(slider.slides.last().clone().addclassName('clone')).attr('aria-hidden', 'true'));
         }
         slider.newSlides = $(slider.vars.selector, slider);
 
@@ -983,7 +983,7 @@
       }
       // !CAROUSEL:
       // CANDIDATE: active slide
-      if (!carousel) { slider.slides.removeClass(namespace + "active-slide").eq(slider.currentSlide).addClass(namespace + "active-slide"); }
+      if (!carousel) { slider.slides.removeclassName(namespace + "active-slide").eq(slider.currentSlide).addclassName(namespace + "active-slide"); }
 
       //FlexSlider: init() Callback
       slider.vars.init(slider);
@@ -1119,13 +1119,13 @@
 
   //FlexSlider: Default Settings
   $.flexslider.defaults = {
-    namespace: "flex-",             //{NEW} String: Prefix string attached to the class of every element generated by the plugin
+    namespace: "flex-",             //{NEW} String: Prefix string attached to the className of every element generated by the plugin
     selector: ".slides > li",       //{NEW} Selector: Must match a simple pattern. '{container} > {slide}' -- Ignore pattern at your own peril
     animation: "fade",              //String: Select your animation type, "fade" or "slide"
     easing: "swing",                //{NEW} String: Determines the easing method used in jQuery transitions. jQuery easing plugin is supported!
     direction: "horizontal",        //String: Select the sliding direction, "horizontal" or "vertical"
     reverse: false,                 //{NEW} Boolean: Reverse the animation direction
-    animationLoop: true,            //Boolean: Should the animation loop? If false, directionNav will received "disable" classes at either end
+    animationLoop: true,            //Boolean: Should the animation loop? If false, directionNav will received "disable" classNamees at either end
     smoothHeight: false,            //{NEW} Boolean: Allow height of the slider to animate smoothly in horizontal mode
     startAt: 0,                     //Integer: The slide that the slider should start on. Array notation (0 = first slide)
     slideshow: true,                //Boolean: Animate slider automatically
@@ -1161,7 +1161,7 @@
     // Special properties
     controlsContainer: "",          //{UPDATED} jQuery Object/Selector: Declare which container the navigation elements should be appended too. Default container is the FlexSlider element. Example use would be $(".flexslider-container"). Property is ignored if given element is not found.
     manualControls: "",             //{UPDATED} jQuery Object/Selector: Declare custom control navigation. Examples would be $(".flex-control-nav li") or "#tabs-nav li img", etc. The number of elements in your controlNav should match the number of slides/tabs.
-    customDirectionNav: "",         //{NEW} jQuery Object/Selector: Custom prev / next button. Must be two jQuery elements. In order to make the events work they have to have the classes "prev" and "next" (plus namespace)
+    customDirectionNav: "",         //{NEW} jQuery Object/Selector: Custom prev / next button. Must be two jQuery elements. In order to make the events work they have to have the classNamees "prev" and "next" (plus namespace)
     sync: "",                       //{NEW} Selector: Mirror the actions performed on this slider with another slider. Use with care.
     asNavFor: "",                   //{NEW} Selector: Internal property exposed for turning the slider into a thumbnail navigation for another slider
 
