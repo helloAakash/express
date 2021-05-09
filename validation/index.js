@@ -22,3 +22,29 @@ exports.productValidation=(req,res,next)=>{
 	}
 	next();
 }
+
+//for user validation
+exports.userValidation=(req,res,next)=>{
+    req.check('name','Name is required').notEmpty()
+
+    req.check('email','Email is required').notEmpty()
+    .isEmail()
+    .withMessage('Invalid email')
+
+    req.check('password','Password is required').notEmpty()
+
+    .isLength({
+        min:8
+
+    })
+    .withMessage('Password must be more than 8 caharacters')
+
+    const errors=req.validationErrors();
+	if(errors){
+		const firstError=errors.map(error=>error.msg)[0];
+		return res.status(400).json({error:firstError})
+	}
+	next();
+
+
+}
