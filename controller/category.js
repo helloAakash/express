@@ -53,14 +53,7 @@ exports.deleteCategory=(req,res)=>{
     })
 }
 
-//to update categoryId
+//to update category
 exports.updateCategory=(req,res)=>{
-    const category=req.category
-    category.category_name=req.body.category_name
-    category.save((error,category)=>{
-        if(error || !category){
-            return res.status(400).json({error:"failed to update category"})
-        }
-        res.json({category})
-    })
+    const category = req.category
 }

@@ -1,5 +1,5 @@
 const express = require('express');
-const { helo, postCategory, getAllCategory, CategoryById,getsingleCategory, deleteCategory,updateCategory } = require('../controller/category');
+const { helo, postCategory, getAllCategory, CategoryById,getsingleCategory, deleteCategory } = require('../controller/category');
 const router = express.Router();
 
 
@@ -9,7 +9,7 @@ router.get('/categorylist',getAllCategory)
 router.param('categoryId',CategoryById)
 router.get('/read/:categoryId',getsingleCategory)
 router.delete('/deletecategory/:categoryId',deleteCategory)
-router.put('/updatecategory/:categoryId',updateCategory)
+router.delete('/deletecategory/:categoryId',deleteCategory)
 
 
 module.exports=router;

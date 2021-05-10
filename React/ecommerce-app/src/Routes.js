@@ -6,6 +6,8 @@ import Confirm from './components/auth/Confirm'
 import Signin from './components/auth/Signin'
 import Forgetpassword from './components/auth/Forgetpassword'
 import Resetpassword from './components/auth/Resetpassword'
+import PrivateRoute from './components/auth/PrivateRouter'
+import UserDashboard from './components/auth/UserDashboard'
 
 const Routes = () =>{
   return(
@@ -18,6 +20,8 @@ const Routes = () =>{
     <Route exact path="/signin" component={Signin}/>
     <Route exact path = "/forgetpassword" component={Forgetpassword}/>
     <Route exact path = "/resetpassword" component={Resetpassword}/>
+
+    <PrivateRoute exact path = "/user/dashboard" component={UserDashboard}/>
     </Switch>
 
     </Router>
