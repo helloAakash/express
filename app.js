@@ -23,6 +23,7 @@ app.use(morgan('dev'))
 app.use(expressValidator())
 app.use(cookieParser())
 app.use(cors())
+app.use('/public/uploads',express.static('public/uploads'))
 
 
 //Route

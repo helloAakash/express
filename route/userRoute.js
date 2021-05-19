@@ -12,6 +12,6 @@ router.post('/signout',signOut)
 router.post('/confirmation/:token',postConfirmation)
 router.post('/resendtoken',resendToken)
 router.post('/forgetpassword',forgetPassword)
-router.post('/resetpassword',passwordReset)
+router.put('/resetpassword/:token',passwordReset)
 
 module.exports = router
